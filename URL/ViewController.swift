@@ -9,10 +9,21 @@
 import UIKit
 
 class ViewController: UIViewController {
-
+    let url = URL(string: "https://apple.com")!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        
+        let task = URLSession.shared.dataTask(with: url, completionHandler: {
+            data, _, _ in
+            guard let data = data else {return}
+            
+            guard let text = String(data: data, encoding: .utf8) else {return}
+            
+            print(#function, text)
+        })
+        
+        task.resume()
     }
 
 
